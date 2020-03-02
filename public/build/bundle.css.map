@@ -1,8 +1,12 @@
 {
   "version": 3,
   "file": "bundle.css",
-  "sources": [],
-  "sourcesContent": [],
+  "sources": [
+    "../../App.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n    import Repo from './components/Repo.svelte';\n\n    let greeting = 'Hello World';\n    let repos = [];\n    let Promise = fetchGithubData();\n\n    async function fetchGithubData() {\n        const res = await fetch('https://api.github.com/search/repositories?q=language:javascript&sort=stars&order=desc&per_page=100&page=');\n        const data = await res.text();\n\n        if (res.ok) {\n            let payload = JSON.parse(data);\n            return repos = payload.items;\n        } else {\n            return new Error(data);\n        }\n    }\n</script>\n\n<div class=\"container\">\n\n    {#await Promise}\n        <p>Fetching Repos ....</p>\n    {:then repos}\n    <table class=\"table\">\n        <thead class=\"thead-dark\">\n        <tr>\n            <th scope=\"col\">Rank</th>\n            <th scope=\"col\">Name</th>\n            <th scope=\"col\">Stars</th>\n            <th scope=\"col\">Avatar</th>\n            <th scope=\"col\">Github</th>\n        </tr>\n        </thead>\n    <tbody>\n    {#each repos as repo, i}\n        <tr class=\"mt-2\">\n            <th scope=\"row\">\n                {i + 1}\n            </th>\n            <td>\n                {repo.name}\n            </td>\n            <td>\n                {repo.stargazers_count.toLocaleString() }\n            </td>\n            <td>\n                <img class=\"avatar\" src=\"{repo.owner.avatar_url}\" alt=\"Repo Avatar\" />\n            </td>\n            <td>\n                <a href=\"{repo.html_url}\" target=\"_blank\">Link</a>\n            </td>\n        </tr>\n    {/each}\n    </tbody>\n\n    </table>\n\n    {:catch error}\n        <h1 style=\"color: red;\">{ error.message }</h1>\n    {/await}\n</div>\n\n<style>\n    .avatar {\n        max-width: 150px;\n        max-height: 75px;\n    }\n</style>\n"
+  ],
   "names": [],
-  "mappings": ""
+  "mappings": "AAiEI,OAAO,eAAC,CAAC,AACL,SAAS,CAAE,KAAK,CAChB,UAAU,CAAE,IAAI,AACpB,CAAC"
 }
