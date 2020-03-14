@@ -19,7 +19,7 @@
     <img src="https://img.shields.io/npm/l/svelte.svg" alt="license">
   </a>
 </p>
-
+<br>
 <img src="https://github.com/xcitic/Svelte-Githubination/blob/master/documentation/SvelteDemo.gif" width="100%" height="450" />
 
 
